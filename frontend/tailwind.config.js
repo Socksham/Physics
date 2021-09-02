@@ -5,7 +5,8 @@ module.exports = {
     extend: {
       colors: {
         "login-red": "#A31700",
-        "login-blue": "#003366"
+        "login-blue": "#003366",
+        "glass": "#F6FEFF"
       },
       zIndex: {
         '-10': '-10',

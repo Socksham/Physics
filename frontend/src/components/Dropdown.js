@@ -24,10 +24,10 @@ const Dropdown = ({ color }) => {
         : (bgColor = "bg-" + color + "-500");
     return (
         <>
-            <div className="flex flex-wrap">
+            <div className="mt-1 flex flex-wrap">
                 <div className="w-full sm:w-6/12 md:w-4/12">
                     <div className="relative inline-flex align-middle w-full">
-                        <div className="flex cursor-pointer" ref={btnDropdownRef}
+                        <div className="flex cursor-pointer items-center" ref={btnDropdownRef}
                             onClick={() => {
                                 dropdownPopoverShow
                                     ? closeDropdownPopover()
@@ -35,7 +35,7 @@ const Dropdown = ({ color }) => {
                             }}>
                             <p
                                 className={
-                                    "text-black text-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 " +
+                                    "text-black text-xl outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" +
                                     bgColor
                                 }
 
