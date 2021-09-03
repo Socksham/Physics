@@ -10,9 +10,9 @@ const Navbar = ({history}) => {
                 <p className="text-2xl">Physics</p>
             </div>
 
-            <div className="flex space-x-8 text-black items-center">
+            <div className="mt-1 flex space-x-8 text-black items-center">
                 <p className="text-xl cursor-pointer" onClick={() => {history.push("/resources")}}>Resources</p>
-                <DropdownRender />
+                <DropdownRender history={history}/>
             </div>
             
         </div>

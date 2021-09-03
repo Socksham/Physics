@@ -6,7 +6,8 @@ module.exports = {
       colors: {
         "login-red": "#A31700",
         "login-blue": "#003366",
-        "glass": "#F6FEFF"
+        // "glass": "#F6FEFF"
+        "glass": "#f5fcfc"
       },
       zIndex: {
         '-10': '-10',
@@ -16,5 +17,8 @@ module.exports = {
   variants: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    require('tailwind-scrollbar-hide')
+    // ...
+  ],
 }

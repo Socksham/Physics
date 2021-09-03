@@ -3,7 +3,7 @@ import React from 'react'
 const PersonCard = ({img, name, description, email, phone}) => {
     return (
         <div className="flex rounded-lg p-6 space-x-8 shadow-md">
-            <div className="w-64">
+            <div className="w-48">
                 <img src={img} className="rounded-lg" />
             </div>
             <div className="flex flex-wrap content-center">

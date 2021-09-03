@@ -42,7 +42,7 @@ const HomeScreen = ({ history }) => {
                         <p className="text-3xl text-center">Contact</p>
                     </div>
                     <div className="flex justify-center">
-                        <div className="space-y-6">
+                        <div className="grid grid-cols-2 gap-4">
                             {
                                 data.map((doc) => {
                                     return (

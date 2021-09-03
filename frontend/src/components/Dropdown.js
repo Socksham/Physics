@@ -3,7 +3,7 @@ import { createPopper } from "@popperjs/core";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 
-const Dropdown = ({ color }) => {
+const Dropdown = ({ color, history }) => {
     // dropdown props
     const [dropdownPopoverShow, setDropdownPopoverShow] = React.useState(false);
     const btnDropdownRef = React.createRef();
@@ -55,56 +55,67 @@ const Dropdown = ({ color }) => {
                             style={{ minWidth: "12rem" }}
                         >
                             <a
-                                href="#pablo"
                                 className={
                                     "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-black"
                                 }
-                                onClick={e => e.preventDefault()}
+                                onClick={(e) => {
+                                    e.preventDefault()
+                                    history.push("/advphysics")
+                                }}    
                             >
                                 Advanced Physics
                             </a>
                             <a
-                                href="#pablo"
                                 className={
                                     "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-black"
                                 }
-                                onClick={e => e.preventDefault()}
-                            >
+                                onClick={(e) => {
+                                    e.preventDefault()
+                                    history.push("/apphysics1")
+                                }}                            >
                                 AP Physics 1
                             </a>
                             <a
-                                href="#pablo"
                                 className={
                                     "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-black"
                                 }
-                                onClick={e => e.preventDefault()}
+                                onClick={(e) => {
+                                    e.preventDefault()
+                                    history.push("/apphysics12")
+                                }}
                             >
                                 AP Physics 1 and 2
                             </a>
                             <a
-                                href="#pablo"
                                 className={
                                     "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-black"
                                 }
-                                onClick={e => e.preventDefault()}
+                                onClick={(e) => {
+                                    e.preventDefault()
+                                    history.push("/apphysicsc")
+                                }}
                             >
                                 AP Physics C
                             </a>
                             <a
-                                href="#pablo"
                                 className={
                                     "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-black"
                                 }
-                                onClick={e => e.preventDefault()}
+                                onClick={(e) => {
+                                    e.preventDefault()
+                                    history.push("/physicalscience")
+                                }}
                             >
                                 Physical Science
                             </a>
                             <a
-                                href="#pablo"
                                 className={
                                     "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-black"
                                 }
-                                onClick={e => e.preventDefault()}
+                                onClick={(e) => {
+                                    e.preventDefault()
+                                    history.push("/physics")
+                                }}
                             >
                                 Physics
                             </a>
@@ -116,10 +127,10 @@ const Dropdown = ({ color }) => {
     );
 };
 
-export default function DropdownRender() {
+export default function DropdownRender({history}) {
     return (
         <>
-            <Dropdown color="white" />
+            <Dropdown color="white" history={history}/>
         </>
     );
 }
