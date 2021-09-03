@@ -1,35 +1,74 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
 const DayCard = ({ day, name, homework, videos, extras }) => {
+
+    const [show, setShow] = useState(false)
+
     useEffect(() => {
-        console.log("HOMEWORK FROM PARENT")
-        console.log(homework)
+        console.log("EXTRAS FROM PARENT")
+        console.log(extras[0].length)
     }, [])
     return (
-        <div className="shadow-xl rounded-b-xl">
-            <div className="flex space-x-4 items-center bg-black rounded-t-xl p-4">
-                <div className="">
-                    <div className="border-2 w-12 h-12 flex items-center justify-center bg-black border-white rounded-md">
-                        <p className="text-2xl text-white ">{day}</p>
+        <div >
+            <div className="shadow-xl rounded-b-xl">
+                <div className="flex space-x-4 items-center bg-black rounded-t-xl p-4">
+                    <div className="">
+                        <div className="border-2 w-12 h-12 flex items-center justify-center bg-black border-white rounded-md">
+                            <p className="text-2xl text-white ">{day}</p>
+                        </div>
                     </div>
+                    <p className="text-white">{name}</p>
                 </div>
-                <p className="text-white">{name}</p>
-            </div>
-            <div className="p-4">
-                <div>
-                    <p className="text-md font-semibold">Homework</p>
+                <div className="p-4">
                     <div>
+                        <p className="text-md font-semibold">Homework</p>
                         {
+                            homework[0] !== undefined &&
+
                             homework[0].map((doc, i) => {
                                 return (
-                                    <p key={doc.name} onClick={() => {window.open(doc.link)}} className="cursor-pointer text-sm">{doc.name}</p>
+                                    <p key={i} onClick={() => { window.open(doc.link) }} className="cursor-pointer text-sm">{doc.name}</p>
                                 )
                             })
-                        }
-                    </div>
-                </div>
 
+                        }
+
+                    </div>
+
+                    {
+                        show ?
+                            <div>
+                                <div className="mt-2 mb-2 w-full h-px bg-gray-300" />
+
+                                <p className="text-md font-semibold">Extras</p>
+
+                                <div className="">
+                                    {
+                                        extras[0] !== undefined &&
+
+                                        extras[0].map((doc, i) => {
+                                            return (
+                                                <p key={i} onClick={() => { window.open(doc.link) }} className="cursor-pointer text-sm">{doc.name}</p>
+                                            )
+                                        })
+
+                                    }
+                                </div>
+                                <div className="border-2 border-black mt-4 p-2 rounded-md flex justify-center cursor-pointer" onClick={() => { setShow(!show) }}>
+                                <button>Shrink</button>
+                            </div>
+                            </div>
+
+                            :
+                            <div className="border-2 border-black mt-4 p-2 rounded-md flex justify-center cursor-pointer" onClick={() => { setShow(!show) }}>
+                                <button>Expand</button>
+                            </div>
+                    }
+
+
+                </div>
             </div>
+
         </div>
     )
 }

@@ -1,8 +1,8 @@
 import React from 'react'
 
-const TopicCard = ({ name, clicked, last }) => {
+const TopicCard = ({ name, clicked, last, setTopic }) => {
     return (
-        <div>
+        <div onClick={() =>{setTopic(name)}}>
             {
                 clicked ?
                     <div>

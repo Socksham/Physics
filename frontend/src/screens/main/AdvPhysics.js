@@ -31,52 +31,57 @@ const AdvPhysics = ({ history }) => {
     }, [])
 
     const getTopicData = async (topicName) => {
-        console.log("HEREs")
-        console.log(topicName)
-
-        var dayArr = []
-        var homeworkArr = []
-        var extrasArr = []
-        var videosArr = []
 
         const ref = db.collection("class").doc("Advanced Physics").collection("topics").doc(topicName).collection("days")
 
         var days = await ref.get()
 
-        days.docs.forEach(async (doc, i) => {
-            console.log(doc.data())
-            console.log((i + 1).toString())
+        var totalHWArr = []
+        var totalExtrasArr = []
 
-            setDays(old => [...old, doc.data()])
+
+        days.docs.forEach(async (doc, i) => {
+
+            var arr = []
+            var extrasArr = []
+
+            console.log(arr)
 
             var homeworkBlah = await ref.doc((i + 1).toString()).collection("homework").get()
-            console.log("OIUYFGEWFYG")
-            console.log(homeworkBlah)
 
-            var num = 0                
-            var arr = []
+            var extrasBlah = await ref.doc((i + 1).toString()).collection("extras").get()
+
 
             homeworkBlah.docs.forEach((doc) => {
-                console.log("HERERER")
                 console.log(doc.data())
                 arr.push(doc.data())
                 console.log(arr)
-                if(homeworkBlah.docs.length === num + 1){
-                    console.log("Changed Got")
-
-                }
-                num += 1
-
             })
-            console.log("OUˇSIDE")
-            console.log(arr)
 
-            setHomework(old => [...old, arr])
-            setGotData(true)
+            extrasBlah.docs.forEach((doc) => {
+                extrasArr.push(doc.data())
+            })
+
+
+            
+            
+            totalHWArr.push(arr)
+            totalExtrasArr.push(extrasArr)
+            console.log("ARRAYS")
+            console.log(totalHWArr)
+
+            // totalExtrasArr.push([1, 2])
+
+            // console.log(totalHWArr, totalExtrasArr)
+            
+            setDays(old => [...old, doc.data()])
 
 
         })
+        setHomework(totalHWArr)
+        setExtras(totalExtrasArr)
 
+        setGotData(true)
     }
 
     return (
@@ -93,56 +98,41 @@ const AdvPhysics = ({ history }) => {
                         classNamesData.map((doc, index) => {
                             if (index === classNamesData.length) {
                                 return (
-                                    <TopicCard key={doc.topicName} name={doc.topicName} clicked={false} last={true} />
+                                    <TopicCard key={doc.topicName} name={doc.topicName} clicked={false} last={true} setTopic={getTopicData}/>
                                 )
                             } else if (index === 0) {
                                 return (
-                                    <TopicCard key={doc.topicName} name={doc.topicName} clicked={true} last={false} />
+                                    <TopicCard key={doc.topicName} name={doc.topicName} clicked={true} last={false} setTopic={getTopicData}/>
                                 )
                             } else {
                                 return (
-                                    <TopicCard key={doc.topicName} name={doc.topicName} clicked={false} last={false} />
+                                    <TopicCard key={doc.topicName} name={doc.topicName} clicked={false} last={false} setTopic={getTopicData}/>
                                 )
                             }
-                            // console.log(doc.topicName)
-                            // return (
-                            //     <TopicCard key={doc.topicName} name={doc.topicName} clicked={false} last={false} />
-                            //     )
-
                         })
                     }
-                    {/* <TopicCard name="1D Motion" clicked={true} last={false} /> */}
-
-                    {/* <TopicCard name="1D Motion" clicked={false} last={false} />
-                    <TopicCard name="1D Motion" clicked={false} last={false} />
-                    <TopicCard name="1D Motion" clicked={false} last={false} />
-                    <TopicCard name="1D Motion" clicked={false} last={false} />
-                    <TopicCard name="1D Motion" clicked={false} last={false} />
-                    <TopicCard name="1D Motion" clicked={false} last={false} />
-                    <TopicCard name="1D Motion" clicked={false} last={false} />
-                    <TopicCard name="1D Motion" clicked={false} last={false} />
-                    <TopicCard name="1D Motion" clicked={false} last={true} /> */}
                 </div>
+
                 <div className="-mt-2">
                     <ArrowForwardIcon />
                 </div>
             </div>
+
+            <div className="pl-48 mb-8">
+                <p className="text-3xl font-semibold">Days</p>
+            </div>
+
             {
                 gotData &&
-                <div className="grid grid-cols-3 gap-4">
+                <div className="grid grid-cols-3 col-end-auto	 auto-rows-fr gap-4 pl-48 pr-48">
                     {
-                        days.map((doc, i) => {
-                            console.log("HOMEWORK")
-                            console.log(i)
-                            console.log(homework)
-                            console.log(homework[i])
+                        days.map((doc, i) => {                            
                             return (
-                                <DayCard key={i} name={doc.dayName} day={doc.dayNum} homework={[homework[i]]} />
+                                <DayCard key={i} name={doc.dayName} day={doc.dayNum} homework={[homework[i]]} extras={[extras[i]]} />
 
                             )
                         })
                     }
-
                 </div>
             }
 
