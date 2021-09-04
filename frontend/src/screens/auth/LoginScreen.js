@@ -1,31 +1,66 @@
-import React, { useState } from 'react'
-import { auth } from '../../utils/Firebase'
+import React, { useState, useEffect, useContext } from 'react'
+import { auth, db } from '../../utils/Firebase'
+import { UserContext } from '../../utils/providers/UserProvider'
+import { signInWithGoogle } from '../../utils/GoogleAuthProvider'
 
 const LoginScreen = ({ history }) => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [error, setError] = useState("")
-
+    const [loggedIn, setLoggedIn] = useState(false)
+    const [isDisabled, setIsDisabled] = useState(true)
+    const user = useContext(UserContext)
 
     const loginHandler = async (e) => {
-        e.preventDefault()
-        await auth.signInWithEmailAndPassword(email, password).then((res) => {
+        setLoggedIn(true)
+
+        var userFromSignIn = await signInWithGoogle(false)
+
+        console.log(userFromSignIn)
+        const ref = db.collection("users").doc(userFromSignIn.email)
+        const exists = (await ref.get()).exists
+
+        if (exists) {
             history.push("/")
-        }).catch((err) => {
-            console.log("ERROR")
-            console.log(err)
-            if (err.message === "There is no user record corresponding to this identifier. The user may have been deleted.") {
-                setError("Incorrect credentials")
-            } else {
-                setError(err.message)
-            }
-        })
+        } else {
+            await ref.set({
+                email: userFromSignIn.email,
+                authenticated: false,
+            })
+            history.push("/entercode")
+        }
+
+
     }
 
+    useEffect(() => {
+        async function func() {
+            if (user) {
+                if (!loggedIn) {
+                    const ref = await db.collection("users").doc(user.email).get()
+                    console.log(user.email)
+                    console.log(ref)
+                    if (ref.data().authenticated) {
+                        setIsDisabled(true)
+                        history.push("/")
+                    } else {
+                        history.push("/entercode")
+
+                    }
+                    console.log(user)
+                }
+
+            }
+        }
+
+        func()
+
+    }, [user])
+
     return (
-        <div className="flex bg-gradient-to-r from-login-red to-login-blue h-screen">
-            <div className="m-auto bg-white pt-20 pb-20 pr-20 pl-20 rounded-3xl">
-                <div className="content-center space-y-10">
+        <div className="flex bg-glass h-screen">
+            <div className="m-auto bg-white pt-20 pb-20 pr-20 pl-20 rounded-3xl shadow-xl animate-fade-in-down">
+                <div className="content-center">
                     <div className="flex justify-center">
                         <p className="font-bold text-3xl">Conant</p>
                         <p className="text-3xl">Physics</p>
@@ -37,18 +72,9 @@ const LoginScreen = ({ history }) => {
                         </div>
                     }
 
-                    <div className="space-y-6">
-                        <div className="">
-                            <p>Email</p>
-                            <input type="text" required id="email" placeholder="" value={email} onChange={(e) => setEmail(e.target.value)} className="focus:outline-none pr-2 w-96 border-b-2" />
-                        </div>
-                        <div>
-                            <p>Password</p>
-                            <input type="password" required id="password" placeholder="" value={password} onChange={(e) => setPassword(e.target.value)} className="focus:outline-none pr-2 w-96 border-b-2" />
-                        </div>
-                    </div>
-                    <div onClick={(e) => { loginHandler(e) }} className="flex justify-center bg-gradient-to-r from-login-red to-login-blue rounded-3xl">
-                        <button className="pt-2 pb-2 text-white text-lg">Login</button>
+                    <div className="mt-6 rounded-md p-2 text-center shadow-md cursor-pointer bg-black text-white transition duration-300 ease-in-out hover:bg-white hover:text-black w-96" onClick={() => { loginHandler() }}>
+
+                        <button className="text-lg" disabled={isDisabled}>Sign in with Google</button>
                     </div>
                 </div>
                 <div className="flex justify-center space-x-1 mt-4">

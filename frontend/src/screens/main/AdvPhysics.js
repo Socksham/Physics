@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import Navbar from '../../components/Navbar'
 import TopicCard from '../../components/TopicCard'
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
@@ -7,6 +7,7 @@ import DayCard from '../../components/DayCard';
 import AutorenewIcon from '@material-ui/icons/Autorenew';
 import DayCardLoader from '../../components/DayCardLoader';
 import TopicCardLoader from '../../components/TopicCardLoader';
+import { UserContext } from '../../utils/providers/UserProvider';
 
 const AdvPhysics = ({ history }) => {
     const [classNamesData, setClassNamesData] = useState([])
@@ -17,23 +18,34 @@ const AdvPhysics = ({ history }) => {
     const [gotData, setGotData] = useState(false)
     const [gotTopics, setTopics] = useState(false)
     const [index, setIndex] = useState(0)
+    const user = useContext(UserContext)
 
     useEffect(() => {
+        
         async function func() {
-            var arr = []
-            await db.collection("class").doc("Advanced Physics").collection("topics").get().then((docs) => {
-                docs.forEach((doc) => {
-                    // getTopicData(doc.data().topicName)
-                    arr.push(doc.data())
-                    setClassNamesData(oldArray => [...oldArray, doc.data()])
-                })
-            }).then(() => {
-                getTopicData(arr[0].topicName)
-            })
+            if(user){
+                const ref = await db.collection("users").doc(user.email).get()
+                if(ref.data().authenticated){
+                    var arr = []
+                    await db.collection("class").doc("Advanced Physics").collection("topics").get().then((docs) => {
+                        docs.forEach((doc) => {
+                            // getTopicData(doc.data().topicName)
+                            arr.push(doc.data())
+                            setClassNamesData(oldArray => [...oldArray, doc.data()])
+                        })
+                    }).then(() => {
+                        getTopicData(arr[0].topicName)
+                    })
+                }else{
+                    history.push("/entercode")
+                }
+            }else{
+                history.push("/login")
+            }
         }
 
         func()
-    }, [])
+    }, [user])
 
     const getTopicDataBtn = async (topicName) => {
 

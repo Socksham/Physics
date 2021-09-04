@@ -25,11 +25,11 @@ const TopicCard = ({ name, clicked, last, setTopic }) => {
                     <div>
                         {
                             last ?
-                                <div className="cursor-pointer mb-2 p-2  shadow-md  rounded-md">
+                                <div className="cursor-pointer mb-2 p-2  shadow-md rounded-md bg-white">
                                     <p className="whitespace-nowrap">{name}</p>
                                 </div>
                                 :
-                                <div className="cursor-pointer mr-2 mb-2 p-2 shadow-md  rounded-md">
+                                <div className="cursor-pointer mr-2 mb-2 p-2 shadow-md rounded-md bg-white">
                                     <p className="whitespace-nowrap">{name}</p>
                                 </div>
                         }

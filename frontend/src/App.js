@@ -13,25 +13,31 @@ import RegisterScreen from './screens/auth/RegisterScreen';
 import LogoutScreen from './screens/auth/LogoutScreen';
 import AdvPhysics from './screens/main/AdvPhysics';
 import Simulations from './screens/main/Simulations';
+import UserProvider from './utils/providers/UserProvider';
+import { db } from './utils/Firebase';
+import { useEffect, useState } from 'react';
 
 function App() {
   return (
-    <BrowserRouter>
-      <Switch>
-        <Route exact path="/" component={HomeScreen}/>
-        <Route exact path="/advphysics" component={AdvPhysics} />
-        <Route exact path="/apphysics1" component={APPhysics1}/>
-        <Route exact path="/apphysics12" component={APPhysics12}/>
-        <Route exact path="/apphysicsc" component={APPhysicsC}/>
-        <Route exact path="/login" component={LoginScreen}/>
-        <Route exact path="/register" component={RegisterScreen}/>
-        <Route exact path="/logout" component={LogoutScreen}/>
-        <Route exact path="/resources" component={Resources}/>
-        <Route exact path="/physicalscience" component={PhysicalScience}/>
-        <Route exact path="/physics" component={Physics}/>
-        <Route exact path="/simulations" component={Simulations} />
-      </Switch>
-    </BrowserRouter>
+    <UserProvider>
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/" component={HomeScreen} />
+          <Route exact path="/advphysics" component={AdvPhysics} />
+          <Route exact path="/apphysics1" component={APPhysics1} />
+          <Route exact path="/apphysics12" component={APPhysics12} />
+          <Route exact path="/apphysicsc" component={APPhysicsC} />
+          <Route exact path="/login" component={LoginScreen} />
+          <Route exact path="/register" component={RegisterScreen} />
+          <Route exact path="/logout" component={LogoutScreen} />
+          <Route exact path="/resources" component={Resources} />
+          <Route exact path="/physicalscience" component={PhysicalScience} />
+          <Route exact path="/physics" component={Physics} />
+          <Route exact path="/simulations" component={Simulations} />
+        </Switch>
+      </BrowserRouter>
+    </UserProvider>
+
   );
 }
 

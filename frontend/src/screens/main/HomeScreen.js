@@ -1,12 +1,23 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Navbar from '../../components/Navbar'
 import PersonCard from '../../components/PersonCard'
 import { db } from '../../utils/Firebase'
+import { UserContext } from '../../utils/providers/UserProvider'
 
 const HomeScreen = ({ history }) => {
     const [data, setData] = useState([])
+    const [isLoggedIn, setIsLoggedIn] = useState(false)
+    const user = useContext(UserContext)
 
     useEffect(() => {
+        if (user) {
+            setIsLoggedIn(true)
+
+
+        } else {
+            setIsLoggedIn(false)
+        }
+
         async function func() {
             await db.collection("home").get().then((docs) => {
                 docs.forEach((doc) => {
@@ -17,10 +28,12 @@ const HomeScreen = ({ history }) => {
 
         func()
 
+
+
     }, [])
     return (
         <>
-            <Navbar history={history} />
+            <Navbar history={history} isLoggedIn={isLoggedIn} />
 
             <div className="bg-glass">
                 <div className="flex justify-between pl-24 pr-24">
@@ -46,7 +59,10 @@ const HomeScreen = ({ history }) => {
                             {
                                 data.map((doc) => {
                                     return (
-                                        <PersonCard name={doc.Name} phone={doc.Number} email={doc.Email} img="/personImg.jpg" description={doc.Description} />
+                                        <div key={doc.name}>
+                                            <PersonCard name={doc.Name} phone={doc.Number} email={doc.Email} img="/personImg.jpg" description={doc.Description} key={doc.name} />
+                                        </div>
+
                                     )
                                 })
                             }
@@ -55,7 +71,7 @@ const HomeScreen = ({ history }) => {
                     </div>
                 </div>
 
-                <div className="mt-20 ml-64 mr-64 pt-4 pb-8 px-6 rounded-lg shadow mb-1">
+                <div className="mt-20 ml-64 mr-64 pt-4 pb-8 px-6 rounded-lg shadow mb-1 bg-white">
                     <div className="mb-8">
                         <p className="text-3xl text-center">About Us</p>
                     </div>
@@ -65,7 +81,7 @@ const HomeScreen = ({ history }) => {
                         <p>With unmatched passion, the teachers of Conant Physics work to create a community of students who not only love physics, but love to learn about physics.</p>
                     </div>
                 </div>
-                <div className="bg-glass pb-20"/>
+                <div className="bg-glass pb-20" />
             </div>
 
 

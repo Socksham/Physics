@@ -2,7 +2,7 @@ import React from 'react'
 
 const DayCardLoader = () => {
     return (
-        <div className="animate-fade-in-down">
+        <div className="animate-fade-in-down bg-white">
             <div className="shadow-xl rounded-b-xl">
                 <div className="flex space-x-4 items-center bg-black rounded-t-xl p-4">
                     <div className="">
