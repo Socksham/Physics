@@ -12,6 +12,7 @@ import LoginScreen from './screens/auth/LoginScreen';
 import RegisterScreen from './screens/auth/RegisterScreen';
 import LogoutScreen from './screens/auth/LogoutScreen';
 import AdvPhysics from './screens/main/AdvPhysics';
+import Simulations from './screens/main/Simulations';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         <Route exact path="/resources" component={Resources}/>
         <Route exact path="/physicalscience" component={PhysicalScience}/>
         <Route exact path="/physics" component={Physics}/>
+        <Route exact path="/simulations" component={Simulations} />
       </Switch>
     </BrowserRouter>
   );

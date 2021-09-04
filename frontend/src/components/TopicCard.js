@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 const TopicCard = ({ name, clicked, last, setTopic }) => {
     return (
-        <div onClick={() =>{setTopic(name)}}>
+        <div onClick={() =>{
+            setTopic(name)
+            }} className="animate-fade-in-down pt-3">
             {
                 clicked ?
                     <div>

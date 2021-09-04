@@ -11,6 +11,7 @@ const Navbar = ({history}) => {
             </div>
 
             <div className="mt-1 flex space-x-8 text-black items-center">
+                <p className="text-xl cursor-pointer" onClick={() => {history.push("/simulations")}}>Simulations</p>
                 <p className="text-xl cursor-pointer" onClick={() => {history.push("/resources")}}>Resources</p>
                 <DropdownRender history={history}/>
             </div>

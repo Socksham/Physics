@@ -1,9 +1,166 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import Navbar from '../../components/Navbar'
+import TopicCard from '../../components/TopicCard'
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import { db } from "../../utils/Firebase"
+import DayCard from '../../components/DayCard';
+import DayCardLoader from '../../components/DayCardLoader';
+import TopicCardLoader from '../../components/TopicCardLoader';
 
-const APPhysics1 = () => {
+const APPhysics1 = ({ history }) => {
+    const [classNamesData, setClassNamesData] = useState([])
+    const [homework, setHomework] = useState([])
+    const [extras, setExtras] = useState([])
+    const [days, setDays] = useState([])
+    const [gotData, setGotData] = useState(false)
+    const [gotTopics, setTopics] = useState(false)
+
+    useEffect(() => {
+        async function func() {
+            var arr = []
+            await db.collection("class").doc("AP Physics 1").collection("topics").get().then((docs) => {
+                docs.forEach((doc) => {
+                    // getTopicData(doc.data().topicName)
+                    arr.push(doc.data())
+                    setClassNamesData(oldArray => [...oldArray, doc.data()])
+                })
+            }).then(() => {
+                getTopicData(arr[0].topicName)
+            })
+        }
+
+        func()
+    }, [])
+
+    const getTopicData = async (topicName) => {
+
+        setTopics(false)
+
+        const ref = db.collection("class").doc("AP Physics 1").collection("topics").doc(topicName).collection("days")
+
+        var days = await ref.get()
+
+        var totalHWArr = []
+        var totalExtrasArr = []
+
+
+        days.docs.forEach(async (doc, i) => {
+
+            var arr = []
+            var extrasArr = []
+
+            console.log(arr)
+
+            var homeworkBlah = await ref.doc((i + 1).toString()).collection("homework").get()
+
+            var extrasBlah = await ref.doc((i + 1).toString()).collection("extras").get()
+
+
+            homeworkBlah.docs.forEach((doc) => {
+                console.log(doc.data())
+                arr.push(doc.data())
+                console.log(arr)
+            })
+
+            extrasBlah.docs.forEach((doc) => {
+                extrasArr.push(doc.data())
+            })
+
+
+
+
+            totalHWArr.push(arr)
+            totalExtrasArr.push(extrasArr)
+            console.log("ARRAYS")
+            console.log(totalHWArr)
+
+            // totalExtrasArr.push([1, 2])
+
+            // console.log(totalHWArr, totalExtrasArr)
+
+            setDays(old => [...old, doc.data()])
+
+
+        })
+
+        setHomework(totalHWArr)
+        setExtras(totalExtrasArr)
+
+        setTopics(true)
+
+        setGotData(true)
+    }
+
     return (
-        <div>
-            
+        <div className="bg-glass h-screen ">
+            <Navbar history={history} />
+
+            <div className="mt-10 mb-10">
+                <p className="text-5xl text-center">Advanced Physics</p>
+            </div>
+
+            <div className="flex mr-48 ml-48 justify-center items-center space-x-2 mb-10">
+                {
+                    !gotTopics ?
+                        <TopicCardLoader />
+                        :
+                        <div className="flex overflow-x-scroll scrollbar-hide items-center">
+                            {
+                                classNamesData.map((doc, index) => {
+                                    if (index === classNamesData.length) {
+                                        return (
+                                            <TopicCard key={doc.topicName} name={doc.topicName} clicked={false} last={true} setTopic={getTopicData} />
+                                        )
+                                    } else if (index === 0) {
+                                        return (
+                                            <TopicCard key={doc.topicName} name={doc.topicName} clicked={true} last={false} setTopic={getTopicData} />
+                                        )
+                                    } else {
+                                        return (
+                                            <TopicCard key={doc.topicName} name={doc.topicName} clicked={false} last={false} setTopic={getTopicData} />
+                                        )
+                                    }
+                                })
+                            }
+                            <div className="-mt-2">
+                                <ArrowForwardIcon />
+                            </div>
+                        </div>
+                }
+
+
+
+            </div>
+
+            <div className="pl-48 mb-8">
+                <p className="text-3xl font-semibold">Days</p>
+            </div>
+
+            {
+                gotData ?
+                    <div className="grid grid-cols-3 col-end-auto auto-rows-fr gap-4 pl-48 pr-48">
+                        {
+                            days.map((doc, i) => {
+                                return (
+                                    // <DayCardLoader />
+                                    <DayCard key={i} name={doc.dayName} day={doc.dayNum} homework={[homework[i]]} extras={[extras[i]]} />
+
+                                )
+                            })
+                        }
+                    </div>
+
+                    :
+                    <div className="grid grid-cols-3 col-end-auto auto-rows-fr gap-4 pl-48 pr-48">
+                        <DayCardLoader />
+                        <DayCardLoader />
+                        <DayCardLoader />
+                        <DayCardLoader />
+                        <DayCardLoader />
+                    </div>
+
+            }
+
         </div>
     )
 }
