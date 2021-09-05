@@ -16,6 +16,12 @@ const Resources = ({ history }) => {
         async function func() {
             if (user) {
                 setIsLoggedIn(true)
+                console.log("THERE WAS A USER")
+                const ref = await db.collection("users").doc(user.email).get()
+                if(ref.data().authenticated){
+                }else{
+                    history.push("/entercode")
+                }
             } else {
                 setIsLoggedIn(false)
             }
