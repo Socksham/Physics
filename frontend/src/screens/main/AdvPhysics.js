@@ -4,7 +4,6 @@ import TopicCard from '../../components/TopicCard'
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import { db } from "../../utils/Firebase"
 import DayCard from '../../components/DayCard';
-import AutorenewIcon from '@material-ui/icons/Autorenew';
 import DayCardLoader from '../../components/DayCardLoader';
 import TopicCardLoader from '../../components/TopicCardLoader';
 import { UserContext } from '../../utils/providers/UserProvider';
@@ -12,18 +11,22 @@ import { UserContext } from '../../utils/providers/UserProvider';
 const AdvPhysics = ({ history }) => {
     const [classNamesData, setClassNamesData] = useState([])
     const [homework, setHomework] = useState([])
-    const [videos, setVideos] = useState([])
     const [extras, setExtras] = useState([])
     const [days, setDays] = useState([])
     const [gotData, setGotData] = useState(false)
     const [gotTopics, setTopics] = useState(false)
     const [index, setIndex] = useState(0)
+    const [isLoggedIn, setIsLoggedIn] = useState(true)
     const user = useContext(UserContext)
 
     useEffect(() => {
         
         async function func() {
+            
             if(user){
+                setIsLoggedIn(true)
+
+                console.log("THERE WAS A USER")
                 const ref = await db.collection("users").doc(user.email).get()
                 if(ref.data().authenticated){
                     var arr = []
@@ -40,7 +43,8 @@ const AdvPhysics = ({ history }) => {
                     history.push("/entercode")
                 }
             }else{
-                history.push("/login")
+                // history.push("/login")
+                console.log("no user")
             }
         }
 
@@ -172,7 +176,7 @@ const AdvPhysics = ({ history }) => {
 
     return (
         <div className="bg-glass h-screen">
-            <Navbar history={history} />
+            <Navbar history={history} isLoggedIn={isLoggedIn}/>
 
             <div className="mt-10 mb-10">
                 <p className="text-5xl text-center">Advanced Physics</p>

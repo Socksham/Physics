@@ -140,7 +140,7 @@ const RegisterScreen = ({ history }) => {
                                         <p className="text-lg mb-2">Code</p>
                                         <input type="password" required id="password" placeholder="" value={code} onChange={(e) => setCode(e.target.value)} className="focus:outline-none bg-glass pr-2 w-96 h-10 text-center text-2xl rounded-md shadow-md focus:border-gray-300 focus:border-2 " />
                                     </div>
-                                    <div className="mt-8 rounded-md p-2 text-center shadow-md cursor-pointer bg-black text-white transition duration-300 ease-in-out hover:bg-white hover:text-black" onClick={() => { codeHandler() }}>
+                                    <div className="mt-8 rounded-md p-2 text-center shadow-md cursor-pointer bg-black text-white transition duration-300 ease-in-out hover:bg-glass hover:text-black" onClick={() => { codeHandler() }}>
                                         <button className="text-lg">Authenticate</button>
                                     </div>
                                 </div>
@@ -151,7 +151,7 @@ const RegisterScreen = ({ history }) => {
                                         <p className="text-lg mb-2">Code</p>
                                         <input type="password" required id="password" placeholder="" value={code} disabled onChange={(e) => setCode(e.target.value)} className="focus:outline-none bg-glass pr-2 w-96 h-10 text-center text-2xl rounded-md shadow-md cursor-pointer focus:border-gray-300 focus:border-2 " />
                                     </div>
-                                    <div className="mt-8 rounded-md p-2 text-center shadow-md cursor-pointer bg-black text-white transition duration-300 ease-in-out hover:bg-white hover:text-black" onClick={() => { registerHandler() }}>
+                                    <div className="mt-8 rounded-md p-2 text-center shadow-md cursor-pointer bg-black text-white transition duration-300 ease-in-out hover:bg-glass hover:text-black" onClick={() => { registerHandler() }}>
 
                                         <button className="text-lg" disabled={isDisabled}>Sign up with Google</button>
                                     </div>

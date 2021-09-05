@@ -6,7 +6,7 @@ const DayCard = ({ day, name, homework, videos, extras }) => {
 
     useEffect(() => {
         console.log("EXTRAS FROM PARENT")
-        console.log(extras[0].length)
+        // console.log(extras[0].length)
     }, [])
     return (
         <div className="animate-fade-in-down">

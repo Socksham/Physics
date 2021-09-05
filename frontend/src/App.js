@@ -16,6 +16,7 @@ import Simulations from './screens/main/Simulations';
 import UserProvider from './utils/providers/UserProvider';
 import { db } from './utils/Firebase';
 import { useEffect, useState } from 'react';
+import EnterCode from './screens/auth/EnterCode';
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
           <Route exact path="/physicalscience" component={PhysicalScience} />
           <Route exact path="/physics" component={Physics} />
           <Route exact path="/simulations" component={Simulations} />
+		  <Route exact path="/entercode" component={EnterCode} />
         </Switch>
       </BrowserRouter>
     </UserProvider>

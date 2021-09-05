@@ -1,26 +1,40 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import Navbar from '../../components/Navbar'
 import ResourcesCard from '../../components/ResourcesCard'
 import { db } from '../../utils/Firebase'
+import { UserContext } from '../../utils/providers/UserProvider'
 
 const Resources = ({ history }) => {
     const [data, setData] = useState([])
+    const [isLoggedIn, setIsLoggedIn] = useState(null)
+    const user = useContext(UserContext)
 
     useEffect(() => {
+
+        var arr = []
+
         async function func() {
+            if (user) {
+                setIsLoggedIn(true)
+            } else {
+                setIsLoggedIn(false)
+            }
             await db.collection("resources").get().then((docs) => {
                 docs.forEach((doc) => {
-                    setData(old => [...old, doc.data()])
+                    arr.push(doc.data())
                 })
             })
+            setData(arr)
         }
 
         func()
-    }, [])
+
+
+    }, [user])
 
     return (
         <>
-            <Navbar history={history} />
+            <Navbar history={history} isLoggedIn={isLoggedIn}/>
 
             <div className="bg-glass h-screen">
                 <div className="text-center pt-6 mb-20">

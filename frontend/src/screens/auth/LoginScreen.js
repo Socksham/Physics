@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect, useContext, useRef } from 'react'
 import { auth, db } from '../../utils/Firebase'
 import { UserContext } from '../../utils/providers/UserProvider'
 import { signInWithGoogle } from '../../utils/GoogleAuthProvider'
@@ -7,13 +7,12 @@ const LoginScreen = ({ history }) => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [error, setError] = useState("")
-    const [loggedIn, setLoggedIn] = useState(false)
+    const loggedIn = useRef(false)
     const [isDisabled, setIsDisabled] = useState(true)
     const user = useContext(UserContext)
 
     const loginHandler = async (e) => {
-        setLoggedIn(true)
-
+        loggedIn.current = true
         var userFromSignIn = await signInWithGoogle(false)
 
         console.log(userFromSignIn)
@@ -35,22 +34,61 @@ const LoginScreen = ({ history }) => {
 
     useEffect(() => {
         async function func() {
-            if (user) {
-                if (!loggedIn) {
-                    const ref = await db.collection("users").doc(user.email).get()
-                    console.log(user.email)
-                    console.log(ref)
-                    if (ref.data().authenticated) {
-                        setIsDisabled(true)
-                        history.push("/")
+            await auth.getRedirectResult().then(async function (result) {
+                // The firebase.User instance:
+                console.log("STILL CHECKS HERE")
+                var userFromSignIn = result.user;
+                if(userFromSignIn !== null){
+                    console.log("LOGIN HANDLER")
+                    console.log(userFromSignIn)
+                    loggedIn.current = true
+
+                    db.collection("users").doc(userFromSignIn.email).set({
+                        email: userFromSignIn.email,
+                        authenticated: false
+                    })
+
+                    history.push("/")
+                }else{
+                    if (user) {
+                        console.log(loggedIn.current)
+                        if (!loggedIn.current) {
+                            const ref = await db.collection("users").doc(user.email).get()
+                            console.log(user.email)
+                            console.log(ref)
+                            if (ref.data().authenticated) {
+                                setIsDisabled(true)
+                                history.push("/")
+                            } else {
+                                history.push("/entercode")
+        
+                            }
+                            console.log(user)
+                        }
+        
                     } else {
-                        history.push("/entercode")
-
+                        setIsDisabled(false)
                     }
-                    console.log(user)
                 }
-
-            }
+                
+            }, function (error) {
+                // The provider's account email, can be used in case of
+                // auth/account-exists-with-different-credential to fetch the providers
+                // linked to the email:
+                var email = error.email;
+                // The provider's credential:
+                var credential = error.credential;
+                console.log("ERRORs")
+                // In case of auth/account-exists-with-different-credential error,
+                // you can fetch the providers using this:
+                if (error.code === 'auth/account-exists-with-different-credential') {
+                    auth.fetchSignInMethodsForEmail(email).then(function (providers) {
+                        // The returned 'providers' is a list of the available providers
+                        // linked to the email address. Please refer to the guide for a more
+                        // complete explanation on how to recover from this error.
+                    });
+                }
+            });
         }
 
         func()
@@ -72,7 +110,7 @@ const LoginScreen = ({ history }) => {
                         </div>
                     }
 
-                    <div className="mt-6 rounded-md p-2 text-center shadow-md cursor-pointer bg-black text-white transition duration-300 ease-in-out hover:bg-white hover:text-black w-96" onClick={() => { loginHandler() }}>
+                    <div className="mt-6 rounded-md p-2 text-center shadow-md cursor-pointer bg-black text-white transition duration-300 ease-in-out hover:bg-glass hover:text-black w-96" onClick={() => { loginHandler() }}>
 
                         <button className="text-lg" disabled={isDisabled}>Sign in with Google</button>
                     </div>

@@ -6,31 +6,32 @@ import { UserContext } from '../../utils/providers/UserProvider'
 
 const HomeScreen = ({ history }) => {
     const [data, setData] = useState([])
-    const [isLoggedIn, setIsLoggedIn] = useState(false)
+    const [isLoggedIn, setIsLoggedIn] = useState(null)
     const user = useContext(UserContext)
 
     useEffect(() => {
-        if (user) {
-            setIsLoggedIn(true)
-
-
-        } else {
-            setIsLoggedIn(false)
-        }
 
         async function func() {
+            var peopleArr = []
+            if (user) {
+                setIsLoggedIn(true)
+            } else {
+                setIsLoggedIn(false)
+            }
             await db.collection("home").get().then((docs) => {
                 docs.forEach((doc) => {
-                    setData(old => [...old, doc.data()])
+                    peopleArr.push(doc.data())
+                    // setData(old => [...old, doc.data()])
                 })
             })
+            setData(peopleArr)
         }
+
 
         func()
 
-
-
-    }, [])
+    }, [user])
+    
     return (
         <>
             <Navbar history={history} isLoggedIn={isLoggedIn} />

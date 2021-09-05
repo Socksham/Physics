@@ -10,7 +10,16 @@ const Dropdown = ({ color, history }) => {
     const popoverDropdownRef = React.createRef();
     const openDropdownPopover = () => {
         createPopper(btnDropdownRef.current, popoverDropdownRef.current, {
-            placement: "bottom-start"
+            placement: "bottom",
+            modifiers: [
+                {
+                  name: "offset",
+                  enabled: true,
+                  options: {
+                    offset: [0, 5]
+                  }
+                }
+              ]
         });
         setDropdownPopoverShow(true);
     };
@@ -56,7 +65,7 @@ const Dropdown = ({ color, history }) => {
                         >
                             <a
                                 className={
-                                    "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-black"
+                                    "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-black cursor-pointer hover:bg-black hover:text-white transition duration-300 ease-in-out"
                                 }
                                 onClick={(e) => {
                                     e.preventDefault()
@@ -67,7 +76,7 @@ const Dropdown = ({ color, history }) => {
                             </a>
                             <a
                                 className={
-                                    "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-black"
+                                    "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-black cursor-pointer hover:bg-black hover:text-white transition duration-300 ease-in-out"
                                 }
                                 onClick={(e) => {
                                     e.preventDefault()
@@ -77,7 +86,7 @@ const Dropdown = ({ color, history }) => {
                             </a>
                             <a
                                 className={
-                                    "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-black"
+                                    "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-black cursor-pointer hover:bg-black hover:text-white transition duration-300 ease-in-out"
                                 }
                                 onClick={(e) => {
                                     e.preventDefault()
@@ -88,7 +97,7 @@ const Dropdown = ({ color, history }) => {
                             </a>
                             <a
                                 className={
-                                    "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-black"
+                                    "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-black cursor-pointer hover:bg-black hover:text-white transition duration-300 ease-in-out"
                                 }
                                 onClick={(e) => {
                                     e.preventDefault()
@@ -99,7 +108,7 @@ const Dropdown = ({ color, history }) => {
                             </a>
                             <a
                                 className={
-                                    "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-black"
+                                    "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-black cursor-pointer hover:bg-black hover:text-white transition duration-300 ease-in-out"
                                 }
                                 onClick={(e) => {
                                     e.preventDefault()
@@ -110,7 +119,7 @@ const Dropdown = ({ color, history }) => {
                             </a>
                             <a
                                 className={
-                                    "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-black"
+                                    "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-black cursor-pointer hover:bg-black hover:text-white transition duration-300 ease-in-out"
                                 }
                                 onClick={(e) => {
                                     e.preventDefault()
