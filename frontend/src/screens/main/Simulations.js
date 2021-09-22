@@ -2,28 +2,15 @@ import React, { useEffect, useState, useContext } from 'react'
 import Navbar from '../../components/Navbar'
 import SimulationCard from '../../components/SimulationCard'
 import { db } from '../../utils/Firebase'
-import { UserContext } from '../../utils/providers/UserProvider'
 
 const Simulations = ({ history }) => {
     const [simulationData, setSimulationData] = useState([])
     const [isLoggedIn, setIsLoggedIn] = useState(null)
-    const user = useContext(UserContext)
 
     useEffect(() => {
         var arr = []
 
         async function func() {
-            if (user) {
-                setIsLoggedIn(true)
-                console.log("THERE WAS A USER")
-                const ref = await db.collection("users").doc(user.email).get()
-                if(ref.data().authenticated){
-                }else{
-                    history.push("/entercode")
-                }
-            } else {
-                setIsLoggedIn(false)
-            }
             const data = await db.collection("simulations").get()
 
             data.docs.forEach((doc) => {
@@ -32,7 +19,7 @@ const Simulations = ({ history }) => {
         }
 
         func()
-    }, [user])
+    }, [])
 
 
     return (

@@ -2,22 +2,14 @@ import React, { useContext, useEffect, useState } from 'react'
 import Navbar from '../../components/Navbar'
 import PersonCard from '../../components/PersonCard'
 import { db } from '../../utils/Firebase'
-import { UserContext } from '../../utils/providers/UserProvider'
 
 const HomeScreen = ({ history }) => {
     const [data, setData] = useState([])
-    const [isLoggedIn, setIsLoggedIn] = useState(null)
-    const user = useContext(UserContext)
 
     useEffect(() => {
 
         async function func() {
             var peopleArr = []
-            if (user) {
-                setIsLoggedIn(true)
-            } else {
-                setIsLoggedIn(false)
-            }
             await db.collection("home").get().then((docs) => {
                 docs.forEach((doc) => {
                     peopleArr.push(doc.data())
@@ -30,14 +22,14 @@ const HomeScreen = ({ history }) => {
 
         func()
 
-    }, [user])
-    
+    }, [])
+
     return (
         <>
-            <Navbar history={history} isLoggedIn={isLoggedIn} />
+            <Navbar history={history} />
 
-            <div className="bg-glass">
-                <div className="flex justify-between pl-24 pr-24">
+            <div className="bg-glass animate-fade-in-down">
+                <div className="md:flex md:justify-between pl-24 pr-24">
                     <div className="w-1/2 flex items-center">
                         <div className="space-y-4">
                             <p className="text-6xl">Physics for everyone</p>
@@ -51,7 +43,7 @@ const HomeScreen = ({ history }) => {
                     </div>
                 </div>
 
-                <div className="mt-32">
+                <div className="mt-32 animate-fade-in-down">
                     <div className="mb-10">
                         <p className="text-3xl text-center">Contact</p>
                     </div>

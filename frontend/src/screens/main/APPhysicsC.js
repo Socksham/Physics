@@ -6,7 +6,6 @@ import { db } from "../../utils/Firebase"
 import DayCard from '../../components/DayCard';
 import DayCardLoader from '../../components/DayCardLoader';
 import TopicCardLoader from '../../components/TopicCardLoader';
-import { UserContext } from '../../utils/providers/UserProvider';
 
 const AdvPhysics = ({ history }) => {
     const [classNamesData, setClassNamesData] = useState([])
@@ -16,19 +15,11 @@ const AdvPhysics = ({ history }) => {
     const [gotData, setGotData] = useState(false)
     const [gotTopics, setTopics] = useState(false)
     const [index, setIndex] = useState(0)
-    const [isLoggedIn, setIsLoggedIn] = useState(true)
-    const user = useContext(UserContext)
 
     useEffect(() => {
         
         async function func() {
             
-            if(user){
-                setIsLoggedIn(true)
-
-                console.log("THERE WAS A USER")
-                const ref = await db.collection("users").doc(user.email).get()
-                if(ref.data().authenticated){
                     var arr = []
                     await db.collection("class").doc("AP Physics C").collection("topics").get().then((docs) => {
                         docs.forEach((doc) => {
@@ -37,19 +28,17 @@ const AdvPhysics = ({ history }) => {
                             setClassNamesData(oldArray => [...oldArray, doc.data()])
                         })
                     }).then(() => {
-                        getTopicData(arr[0].topicName)
+                        if (arr[0]) {
+                            getTopicData(arr[0].topicName)
+                        } else {
+                            setGotData(true)
+                            setTopics(true)
+                        }
                     })
-                }else{
-                    history.push("/entercode")
                 }
-            }else{
-                // history.push("/login")
-                console.log("no user")
-            }
-        }
 
         func()
-    }, [user])
+    }, [])
 
     const getTopicDataBtn = async (topicName) => {
 
@@ -176,7 +165,7 @@ const AdvPhysics = ({ history }) => {
 
     return (
         <div className="bg-glass h-screen">
-            <Navbar history={history} isLoggedIn={isLoggedIn}/>
+            <Navbar history={history}/>
 
             <div className="mt-10 mb-10">
                 <p className="text-5xl text-center">AP Physics C</p>

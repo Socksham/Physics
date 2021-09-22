@@ -6,7 +6,6 @@ import { db } from "../../utils/Firebase"
 import DayCard from '../../components/DayCard';
 import DayCardLoader from '../../components/DayCardLoader';
 import TopicCardLoader from '../../components/TopicCardLoader';
-import { UserContext } from '../../utils/providers/UserProvider';
 
 const AdvPhysics = ({ history }) => {
     const [classNamesData, setClassNamesData] = useState([])
@@ -16,40 +15,32 @@ const AdvPhysics = ({ history }) => {
     const [gotData, setGotData] = useState(false)
     const [gotTopics, setTopics] = useState(false)
     const [index, setIndex] = useState(0)
-    const [isLoggedIn, setIsLoggedIn] = useState(true)
-    const user = useContext(UserContext)
 
     useEffect(() => {
-        
-        async function func() {
-            
-            if(user){
-                setIsLoggedIn(true)
 
-                console.log("THERE WAS A USER")
-                const ref = await db.collection("users").doc(user.email).get()
-                if(ref.data().authenticated){
-                    var arr = []
-                    await db.collection("class").doc("Ap Physics 1").collection("topics").get().then((docs) => {
-                        docs.forEach((doc) => {
-                            // getTopicData(doc.data().topicName)
-                            arr.push(doc.data())
-                            setClassNamesData(oldArray => [...oldArray, doc.data()])
-                        })
-                    }).then(() => {
-                        getTopicData(arr[0].topicName)
-                    })
-                }else{
-                    history.push("/entercode")
+        async function func() {
+            var arr = []
+            await db.collection("class").doc("AP Physics 1").collection("topics").get().then((docs) => {
+                docs.forEach((doc) => {
+                    // getTopicData(doc.data().topicName)
+                    console.log("DOC")
+
+                    arr.push(doc.data())
+                    setClassNamesData(oldArray => [...oldArray, doc.data()])
+                })
+            }).then(() => {
+                if (arr[0]) {
+                    getTopicData(arr[0].topicName)
+                } else {
+                    setGotData(true)
+                    setTopics(true)
                 }
-            }else{
-                // history.push("/login")
-                console.log("no user")
-            }
+            })
+
         }
 
         func()
-    }, [user])
+    }, [])
 
     const getTopicDataBtn = async (topicName) => {
 
@@ -176,7 +167,7 @@ const AdvPhysics = ({ history }) => {
 
     return (
         <div className="bg-glass h-screen">
-            <Navbar history={history} isLoggedIn={isLoggedIn}/>
+            <Navbar history={history} />
 
             <div className="mt-10 mb-10">
                 <p className="text-5xl text-center">AP Physics 1</p>
@@ -192,39 +183,39 @@ const AdvPhysics = ({ history }) => {
                                 classNamesData.map((doc, i) => {
 
                                     if (i === classNamesData.length) {
-                                        if(i === index){
+                                        if (i === index) {
                                             return (
                                                 <div onClick={() => { setIndex(i) }} key={doc.topicName}>
                                                     <TopicCard key={doc.topicName} name={doc.topicName} clicked={true} last={true} setTopic={getTopicDataBtn} />
                                                 </div>
-    
+
                                             )
-                                        }else{
+                                        } else {
                                             return (
                                                 <div onClick={() => { setIndex(i) }} key={doc.topicName}>
                                                     <TopicCard key={doc.topicName} name={doc.topicName} clicked={false} last={true} setTopic={getTopicDataBtn} />
                                                 </div>
-    
+
                                             )
                                         }
-                                        
-                                    }else {
-                                        if(i === index){
+
+                                    } else {
+                                        if (i === index) {
                                             return (
                                                 <div onClick={() => { setIndex(i) }} key={doc.topicName}>
                                                     <TopicCard key={doc.topicName} name={doc.topicName} clicked={true} last={false} setTopic={getTopicDataBtn} />
                                                 </div>
-    
+
                                             )
-                                        }else{
+                                        } else {
                                             return (
                                                 <div onClick={() => { setIndex(i) }} key={doc.topicName}>
                                                     <TopicCard key={doc.topicName} name={doc.topicName} clicked={false} last={false} setTopic={getTopicDataBtn} />
                                                 </div>
-    
+
                                             )
                                         }
-                                        
+
                                     }
 
                                 })

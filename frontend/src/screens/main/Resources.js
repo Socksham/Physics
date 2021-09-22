@@ -2,29 +2,15 @@ import React, { useEffect, useState, useContext } from 'react'
 import Navbar from '../../components/Navbar'
 import ResourcesCard from '../../components/ResourcesCard'
 import { db } from '../../utils/Firebase'
-import { UserContext } from '../../utils/providers/UserProvider'
 
 const Resources = ({ history }) => {
     const [data, setData] = useState([])
-    const [isLoggedIn, setIsLoggedIn] = useState(null)
-    const user = useContext(UserContext)
 
     useEffect(() => {
 
         var arr = []
 
         async function func() {
-            if (user) {
-                setIsLoggedIn(true)
-                console.log("THERE WAS A USER")
-                const ref = await db.collection("users").doc(user.email).get()
-                if(ref.data().authenticated){
-                }else{
-                    history.push("/entercode")
-                }
-            } else {
-                setIsLoggedIn(false)
-            }
             await db.collection("resources").get().then((docs) => {
                 docs.forEach((doc) => {
                     arr.push(doc.data())
@@ -36,11 +22,11 @@ const Resources = ({ history }) => {
         func()
 
 
-    }, [user])
+    }, [])
 
     return (
         <>
-            <Navbar history={history} isLoggedIn={isLoggedIn}/>
+            <Navbar history={history}/>
 
             <div className="bg-glass h-screen">
                 <div className="text-center pt-6 mb-20">
