@@ -10,11 +10,11 @@ const TopicCard = ({ name, clicked, last, setTopic, color }) => {
                     <div>
                         {
                             last ?
-                                <div className={`cursor-pointer mb-2 shadow-md p-2 rounded-md bg-${color}-400`}>
+                                <div className={`cursor-pointer mb-2 shadow-md p-2 rounded-md ${color === "green" && "bg-green-400"} ${color === "red" && "bg-red-400"} ${color === "yellow" && "bg-yellow-400"} ${color === "pink" && "bg-pink-400"} ${color === "blue" && "bg-blue-400"} ${color === "indigo" && "bg-indigo-400"}`}>
                                     <p className="text-white whitespace-nowrap">{name}</p>
                                 </div>
                                 :
-                                <div className={`cursor-pointer mr-2 mb-2 shadow-md p-2 rounded-md bg-${color}-400`}>
+                                <div className={`cursor-pointer mr-2 mb-2 shadow-md p-2 rounded-md ${color === "green" && "bg-green-400"} ${color === "red" && "bg-red-400"} ${color === "yellow" && "bg-yellow-400"} ${color === "pink" && "bg-pink-400"} ${color === "blue" && "bg-blue-400"} ${color === "indigo" && "bg-indigo-400"}`}>
                                     <p className="text-white whitespace-nowrap">{name}</p>
                                 </div>
 

@@ -45,16 +45,19 @@ const Navbar = ({ history }) => {
                                         e.preventDefault()
                                         history.push("/apphysics1")
                                     }}>AP Physics 1</li>
-                                    <li className="flex justify-end py-3 px-0 block border-b-2 hover:border-indigo-400">
-                                        AP Physics 1 and 2</li>
                                     <li className="flex justify-end py-3 px-0 block border-b-2 hover:border-indigo-400" onClick={(e) => {
                                         e.preventDefault()
                                         history.push("/apphysics12")
                                     }}>
-                                        AP Physics C</li>
+                                        AP Physics 1 and 2</li>
                                     <li className="flex justify-end py-3 px-0 block border-b-2 hover:border-indigo-400" onClick={(e) => {
                                         e.preventDefault()
                                         history.push("/apphysicsc")
+                                    }}>
+                                        AP Physics C</li>
+                                    <li className="flex justify-end py-3 px-0 block border-b-2 hover:border-indigo-400" onClick={(e) => {
+                                        e.preventDefault()
+                                        history.push("/physicalscience")
                                     }}>
                                         Physical Science
                                     </li>

@@ -7,7 +7,7 @@ const DayCard = ({ day, name, homework, videos, extras, color }) => {
     return (
         <div className="animate-fade-in-down">
             <div className="shadow-xl rounded-b-xl bg-white">
-                <div className={`flex space-x-4 items-center bg-${color}-400 rounded-t-xl p-4 fade-in`}>
+                <div className={`flex space-x-4 items-center ${color === "green" && "bg-green-400"} ${color === "red" && "bg-red-400"} ${color === "yellow" && "bg-yellow-400"} ${color === "pink" && "bg-pink-400"} ${color === "blue" && "bg-blue-400"} ${color === "indigo" && "bg-indigo-400"} rounded-t-xl p-4 fade-in`}>
                     <div className="">
                         <div className={`border-2 w-12 h-12 flex items-center justify-center bg-black border-white rounded-md`}>
                             <p className="text-2xl text-white ">{day}</p>
