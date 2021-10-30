@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react'
 import Navbar from '../../components/Navbar'
 import TopicCard from '../../components/TopicCard'
-import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import { db } from "../../utils/Firebase"
 import DayCard from '../../components/DayCard';
 import DayCardLoader from '../../components/DayCardLoader';
@@ -205,9 +204,6 @@ const AdvPhysics = ({ history }) => {
 
                                 })
                             }
-                            <div className="mt-1">
-                                <ArrowForwardIcon />
-                            </div>
                         </div>
                 }
 
@@ -261,7 +257,7 @@ const AdvPhysics = ({ history }) => {
                         </div>
 
                         :
-                        <div className="grid grid-cols-3 col-end-auto auto-rows-fr gap-4">
+                        <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-4">
                             <DayCardLoader />
                             <DayCardLoader />
                             <DayCardLoader />
