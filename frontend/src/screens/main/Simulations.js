@@ -23,27 +23,28 @@ const Simulations = ({ history }) => {
 
 
     return (
+        <>
+
         <div className="bg-glass h-screen">
-            <Navbar history={history} isLoggedIn={isLoggedIn}/>
+        <Navbar history={history} isLoggedIn={isLoggedIn} />
+
             <div className="mt-10 mb-10">
-                <p className="text-5xl text-center">Simulations</p>
+                <p className="text-2xl md:text-4xl text-center">Simulations</p>
             </div>
-            <div className="grid grid-cols-2">
-                {/* {
-                    simulationData.map((doc, i) => {
+            <div className="grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-4 pl-4 pr-4 md:pl-40 md:pr-40">
+                {
+                    simulationData.map((doc) => {
+                        console.log(doc)
                         return (
-                            <div key={i}>
-                                <SimulationCard name={doc.name} link={doc.link} image={doc.image} />
-                            </div>
+                            <SimulationCard image={doc.image} link={doc.link} name={doc.name}/>
                         )
-
                     })
-                } */}
-                <SimulationCard name="ewfwef" link="fef" image="ef"/>
-                <SimulationCard name="ewfwef" link="fef" image="ef"/>
-
+                }
             </div>
+
+
         </div>
+        </>
     )
 }
 

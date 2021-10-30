@@ -69,7 +69,7 @@ const Dropdown = ({ color, history }) => {
                                 }
                                 onClick={(e) => {
                                     e.preventDefault()
-                                    history.push("/advphysics")
+                                    history.push("/advancedphysics")
                                 }}    
                             >
                                 Advanced Physics

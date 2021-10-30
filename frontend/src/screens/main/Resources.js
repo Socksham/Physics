@@ -29,11 +29,11 @@ const Resources = ({ history }) => {
             <Navbar history={history}/>
 
             <div className="bg-glass h-screen">
-                <div className="text-center pt-6 mb-20">
-                    <p className="text-4xl">Resources</p>
+                <div className="text-center pt-6 mb-4 md:mb-10">
+                    <p className="text-2xl md:text-4xl">Resources</p>
                 </div>
 
-                <div className="grid grid-cols-3 gap-4 pl-40 pr-40">
+                <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4 pl-4 pr-4 md:pl-40 md:pr-40">
                     {
                         data.map((doc) => {
                             return (

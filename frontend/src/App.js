@@ -18,7 +18,7 @@ function App() {
       <BrowserRouter>
         <Switch>
           <Route exact path="/" component={HomeScreen} />
-          <Route exact path="/advphysics" component={AdvPhysics} />
+          <Route exact path="/advancedphysics" component={AdvPhysics} />
           <Route exact path="/apphysics1" component={APPhysics1} />
           <Route exact path="/apphysics12" component={APPhysics12} />
           <Route exact path="/apphysicsc" component={APPhysicsC} />

@@ -7,7 +7,6 @@ const DayCardLoader = () => {
                 <div className="flex space-x-4 items-center bg-black rounded-t-xl p-4">
                     <div className="">
                         <div className="border-2 w-12 h-12 flex items-center justify-center bg-black border-white rounded-md animate-pulse">
-
                         </div>
                     </div>
                     <p className="text-white"></p>

@@ -28,27 +28,31 @@ const HomeScreen = ({ history }) => {
         <>
             <Navbar history={history} />
 
-            <div className="bg-glass animate-fade-in-down">
-                <div className="md:flex md:justify-between pl-24 pr-24">
-                    <div className="w-1/2 flex items-center">
-                        <div className="space-y-4">
-                            <p className="text-6xl">Physics for everyone</p>
-                            <p className="text-3xl">Study. Grow. Achieve</p>
+            <div className="bg-glass">
+                <div className="flex items-center">
+                    <div className="lg:flex lg:flex-row-reverse lg:justify-between lg:pl-24 lg:pr-24 pl-10 pr-10 mt-4  animate-fade-in-down">
+
+                        <div className="lg:w-1/2 animate-fade-in-down">
+                            <img src="/frontPageImg.png" className="" />
+
                         </div>
+                        <div className="mt-4 md:mt-0 lg:w-1/2 lg:flex text-center lg:items-center lg:text-left animate-fade-in-down">
+                            <div className="space-y-4">
+                                <p className="text-3xl md:text-6xl">Physics for everyone</p>
+                                <p className="text-2xl md:text-3xl">Study. Grow. Achieve.</p>
+                            </div>
 
-                    </div>
-                    <div className="w-1/2">
-                        <img src="/frontPageImg.png" className="" />
-
+                        </div>
                     </div>
                 </div>
 
-                <div className="mt-32 animate-fade-in-down">
-                    <div className="mb-10">
-                        <p className="text-3xl text-center">Contact</p>
+
+                <div className="mt-10 md:mt-32 animate-fade-in-down">
+                    <div className="mb-4 md:mb-10">
+                        <p className="text-2xl md:text-3xl text-center">Contact</p>
                     </div>
-                    <div className="flex justify-center">
-                        <div className="grid grid-cols-2 gap-4">
+                    <div className="ml-24 mr-24 lg:ml-20 lg:mr-20 flex justify-center">
+                        <div className="grid lg:grid-cols-2 gap-4">
                             {
                                 data.map((doc) => {
                                     return (
@@ -64,9 +68,9 @@ const HomeScreen = ({ history }) => {
                     </div>
                 </div>
 
-                <div className="mt-20 ml-64 mr-64 pt-4 pb-8 px-6 rounded-lg shadow mb-1 bg-white">
+                <div className="mt-10 md:mt-20 lg:ml-64 lg:mr-64 ml-10 mr-10 pt-4 pb-8 px-6 rounded-lg shadow mb-1 bg-white">
                     <div className="mb-8">
-                        <p className="text-3xl text-center">About Us</p>
+                        <p className="text-xl md:text-3xl text-center">About Us</p>
                     </div>
                     <div className="space-y-3 text-lg">
                         <p>Conant Physics is comprised of four teachers at James B. Conant High School in Hoffman Estates, Illinois. Chris Bruce, Martin Kulak, and Dave Torpe have worked together for years to create a series of comprehensive courses in physics.</p>
