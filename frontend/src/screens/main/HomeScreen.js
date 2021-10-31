@@ -73,7 +73,7 @@ const HomeScreen = ({ history }) => {
                         <p className="text-xl md:text-3xl text-center">About Us</p>
                     </div>
                     <div className="space-y-3 text-lg">
-                        <p>Conant Physics is comprised of four teachers at James B. Conant High School in Hoffman Estates, Illinois. Chris Bruce, Martin Kulak, and Dave Torpe have worked together for years to create a series of comprehensive courses in physics.</p>
+                        <p>Conant Physics is comprised of four teachers at James B. Conant High School in Hoffman Estates, Illinois. Chris Bruce, Caleb Cochrum, Martin Kulak, and Dave Torpe have worked together for years to create a series of comprehensive courses in physics.</p>
                         <p>Through careful trial and error, the Conant Physics teachers have become leaders in the education community in introducing technology in the classroom to increase student achievement. Through labs, simulations, interactive lectures, hands on experiences, and other classroom techniques, Conant students are able to discover how exciting it is to learn physics.</p>
                         <p>With unmatched passion, the teachers of Conant Physics work to create a community of students who not only love physics, but love to learn about physics.</p>
                     </div>
