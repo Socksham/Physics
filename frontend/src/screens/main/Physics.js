@@ -5,6 +5,7 @@ import { db } from "../../utils/Firebase"
 import DayCard from '../../components/DayCard';
 import DayCardLoader from '../../components/DayCardLoader';
 import TopicCardLoader from '../../components/TopicCardLoader';
+import Footer from '../../components/Footer';
 
 const AdvPhysics = ({ history }) => {
     const color = "indigo"
@@ -268,7 +269,7 @@ const AdvPhysics = ({ history }) => {
                 }
             </div>
 
-
+            <Footer />
         </div>
     )
 }

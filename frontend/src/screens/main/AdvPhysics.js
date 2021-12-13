@@ -5,6 +5,7 @@ import { db } from "../../utils/Firebase"
 import DayCard from '../../components/DayCard';
 import DayCardLoader from '../../components/DayCardLoader';
 import TopicCardLoader from '../../components/TopicCardLoader';
+import Footer from '../../components/Footer';
 
 const AdvPhysics = ({ history }) => {
     const color = "green"
@@ -151,7 +152,7 @@ const AdvPhysics = ({ history }) => {
     //TODO: NEED TO MAKE ARROW SHOW UP ON SIDE OF TOPICS ON IN TOPICS
 
     return (
-        <div className="bg-glass min-h-screen h-full pb-16">
+        <div className="bg-glass min-h-screen h-full">
             <Navbar history={history} />
 
             <div className="mt-10 mb-10">
@@ -268,7 +269,7 @@ const AdvPhysics = ({ history }) => {
                 }
             </div>
 
-
+            <Footer />
         </div>
     )
 }

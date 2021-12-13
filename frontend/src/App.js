@@ -28,7 +28,6 @@ function App() {
           <Route exact path="/simulations" component={Simulations} />
         </Switch>
       </BrowserRouter>
-
   );
 }
 

@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react'
+import Footer from '../../components/Footer'
 import Navbar from '../../components/Navbar'
 import ResourcesCard from '../../components/ResourcesCard'
 import { db } from '../../utils/Firebase'
@@ -43,6 +44,7 @@ const Resources = ({ history }) => {
                     }
                 </div>
             </div>
+            <Footer />
         </>
     )
 }

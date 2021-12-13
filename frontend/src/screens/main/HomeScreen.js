@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
+import Footer from '../../components/Footer'
 import Navbar from '../../components/Navbar'
 import PersonCard from '../../components/PersonCard'
 import { db } from '../../utils/Firebase'
@@ -54,13 +55,37 @@ const HomeScreen = ({ history }) => {
                     <div className="ml-24 mr-24 lg:ml-20 lg:mr-20 flex justify-center">
                         <div className="grid lg:grid-cols-2 gap-4">
                             {
-                                data.map((doc) => {
-                                    return (
-                                        <div key={doc.name}>
-                                            <PersonCard name={doc.Name} phone={doc.Number} email={doc.Email} img="/personImg.jpg" description={doc.Description} key={doc.name} />
-                                        </div>
-
-                                    )
+                                data.map((doc, i) => {
+                                    if(i === 0){
+                                        return (
+                                            <div key={doc.name}>
+                                                <PersonCard name={doc.Name} phone={doc.Number} email={doc.Email} img="/torpe.JPG" description={doc.Description} key={doc.name} />
+                                            </div>
+    
+                                        )
+                                    }else if(i === 1) {
+                                        return (
+                                            <div key={doc.name}>
+                                                <PersonCard name={doc.Name} phone={doc.Number} email={doc.Email} img="/bruce.JPG" description={doc.Description} key={doc.name} />
+                                            </div>
+    
+                                        )
+                                    }else if(i === 2){
+                                        return (
+                                            <div key={doc.name}>
+                                                <PersonCard name={doc.Name} phone={doc.Number} email={doc.Email} img="/kulak.JPG" description={doc.Description} key={doc.name} />
+                                            </div>
+    
+                                        )
+                                    }else{
+                                        return (
+                                            <div key={doc.name}>
+                                                <PersonCard name={doc.Name} phone={doc.Number} email={doc.Email} img="/cochrum.JPG" description={doc.Description} key={doc.name} />
+                                            </div>
+    
+                                        )
+                                    }
+                                    
                                 })
                             }
                         </div>
@@ -81,7 +106,7 @@ const HomeScreen = ({ history }) => {
                 <div className="bg-glass pb-20" />
             </div>
 
-
+            <Footer />
         </>
     )
 }
